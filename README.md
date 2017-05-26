@@ -9,3 +9,6 @@ JPA+EJB+JSF2.0 实现增删查改 做的一个简单的图书管理系统
          2.使用eclipse导入3个项目 <br>
          3.修改BookEJB\ejbModule\META-INF下的persistence.xml <br>
            将<jta-data-source>lt_pool</jta-data-source>中 数据库连接池的名字改为你自己的连接池名即可
+联系方式：
+    QQ: 1481118216
+    邮箱:liaotuo2016@163.com
