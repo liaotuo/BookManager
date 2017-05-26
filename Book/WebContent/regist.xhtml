@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>注册</title>
+	<meta http-equiv="pragma" content="no-cache" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+</h:head>
+<h:body>
+	<h:form>
+		<div align="center" class="container-fluid">
+			<div>
+				<h3>注册</h3>
+			</div>
+			<div>
+				<p>
+					账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:*
+					<h:inputText required="true"
+						requiredMessage="**** 登陆账号不能为空" value="#{userBean.userid}"
+						title="请输入账号">
+					</h:inputText>
+				</p>
+			</div>
+			<div>
+				<p>
+					密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:*
+					<h:inputSecret required="true"
+						requiredMessage="**** 密码不能为空" value="#{userBean.pwd}"
+						title="请输入密码">
+					</h:inputSecret>
+				</p>
+			</div>
+			<div>
+				<p>
+					确认密码:*
+					<h:inputSecret  required="true" value="#{userBean.confirmpwd}"
+						requiredMessage="**** 密码不能为空"
+						title="请输入密码">
+					</h:inputSecret>
+				</p>
+			</div>
+		<!-- 	<div>
+				<p>
+					手机号码:*
+					<h:inputText required="true"
+						requiredMessage="**** 手机号码不能为空"
+						title="请输入账号">
+					</h:inputText>
+				</p>
+			</div>
+			<div>
+				<p>
+					验证码:*
+					<h:inputText required="true"
+						requiredMessage="**** 验证码不能为空"
+						title="请输入验证码">
+					</h:inputText>
+				</p>
+			</div>
+			<div>
+				<h:commandButton  value="获取验证码"/>
+			</div> -->
+			<div>
+				<h:commandButton value="注册" action="#{userBean.regist}"/>
+			</div>
+			<h3 style="color: red;">#{userBean.msgRegist}</h3>
+		</div>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+	<div style="width: 80%; height: 100%; margin: 0 auto;">
+		<div class="jumbotron" style="margin: 0 auto;">
+			<h1 style="text-align: center">欢迎使用图书管理系统</h1>
+		</div>
+		<ul id="myTab" class="nav nav-tabs">
+			<li class="active"><a href="#home" data-toggle="tab">书籍列表</a></li>
+			<li><a href="#add" data-toggle="tab">添加书籍</a></li>
+			<li><a href="#search" data-toggle="tab">搜索书籍</a></li>
+			<li><a href="#changepwd" data-toggle="tab">修改密码</a></li>
+		</ul>
+	</div>
+	<div id="myTabContent" class="tab-content"
+		style="width: 80%; height: 100%; margin: 0 auto;">
+		<div class="tab-pane fade in active" id="home">
+			<h:form>
+				<h:dataTable value="#{bookBean.books}" var="book"
+					style="width: 100%;" class="table table-striped table-bordered table-condensed table-hover">
+					<f:facet name="caption">书籍列表</f:facet>
+					<h:column>
+						<f:facet name="header">ISBN13</f:facet>
+						#{book.isbn13}
+					</h:column>
+					<h:column>
+						<f:facet name="header">书名</f:facet>
+						#{book.title}
+					</h:column>
+					<h:column>
+						<f:facet name="header">出版社</f:facet>
+						#{book.publisher}
+					</h:column>
+					<h:column>
+						<f:facet name="header">出版日期</f:facet>
+						#{book.pubdate}
+					</h:column>
+					<h:column>
+						<f:facet name="header">作者</f:facet>
+						#{book.author}
+					</h:column>
+					<h:column>
+						<f:facet name="header">价格</f:facet>
+						#{book.price}
+					</h:column>
+					<h:column>
+						<f:facet name="header">操作</f:facet>
+						<h:commandButton value="删除" action="#{bookBean.delete(book)}"></h:commandButton>
+					</h:column>
+					<f:facet name="footer">
+						<h:panelGrid columns="5" width="40%">
+							<h:commandLink value="首页" actionListener="#{bookBean.firstPage}">
+							</h:commandLink>
+							<h:commandLink value="上一页"
+								actionListener="#{bookBean.previousPage}">
+							</h:commandLink>
+							<h:commandLink value="下一页" actionListener="#{bookBean.nextPage}">
+							</h:commandLink>
+							<h:commandLink value="末页" actionListener="#{bookBean.lastPage}">
+							</h:commandLink>
+							<h:commandLink value="当前页：#{bookBean.currentPage}">
+							</h:commandLink>
+						</h:panelGrid>
+					</f:facet>
+				</h:dataTable>
+			</h:form>
+		</div>
+
+		<div class="tab-pane fade" id="add">
+			<!-- 增加 -->
+			<h:form class="form-horizontal" style="width:300px;margin:0 auto;">
+				<fieldset>
+					<legend>新增图书</legend>
+					<h:messages></h:messages>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">ISBN10</label>
+						<div class="col-sm-6">
+							<h:inputText value="#{bookBean.isbn10}" required="true"></h:inputText>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">ISBN13</label>
+						<div class="col-sm-6">
+							<h:inputText value="#{bookBean.isbn13}" required="true"></h:inputText>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">书名</label>
+						<div class="col-sm-6">
+							<h:inputText value="#{bookBean.title}" required="true"></h:inputText>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">作者</label>
+						<div class="col-sm-6">
+							<h:inputText value="#{bookBean.author}" required="true"></h:inputText>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">出版社</label>
+						<div class="col-sm-6">
+							<h:inputText value="#{bookBean.publisher}" required="true"></h:inputText>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">出版日期</label>
+						<div class="col-sm-6">
+							<h:inputText value="#{bookBean.pubdate}" required="true"></h:inputText>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">价格</label>
+						<div class="col-sm-6">
+							<h:inputText value="#{bookBean.price}" required="true"></h:inputText>
+						</div>
+					</div>
+					
+					
+					<h:panelGroup></h:panelGroup>
+					<h:commandButton value="新增" action="#{bookBean.add}" class="btn btn-primary btn-lg btn-block">
+						<f:ajax execute="@form" render="bookmsg"></f:ajax>
+					</h:commandButton>
+					<h3 style="color: red;">
+						<h:outputText value="#{bookBean.msg}" id="bookmsg"></h:outputText>
+					</h3>
+				</fieldset>
+			</h:form>
+		</div>
+		<div class="tab-pane fade" id="search">
+			<h:form class="form-inline">
+				 <div class="form-group">
+				    <label for="searchISBN">ISBN</label><br/>
+			    	<h:inputText id="searchISBN" value="#{searchBean.searchISBN}"
+			    		style="width:120px"></h:inputText>
+				 </div>
+				<div class="form-group">
+					<label for="searchTitle">名称</label><br />
+					<h:inputText id="searchTitle" class="w_30" value="#{searchBean.searchTitle}"
+						style="width:140px"></h:inputText>
+				</div>
+				<div class="form-group">
+					<label for="searchAuthor">作者</label><br />
+					<h:inputText id="searchAuthor" class="w_30" value="#{searchBean.searchAuthor}"
+						style="width:80px"></h:inputText>
+				</div>
+				<div class="form-group">
+					<label for="searchPrice">价格区间</label><br />
+					<h:inputText id="searchPrice" class="w_30" value="#{searchBean.searchminPrice}"
+						style="width:50px"></h:inputText>--
+					<h:inputText id="searchPrice1" class="w_30" value="#{searchBean.searchmaxPrice}"
+						style="width:50px"></h:inputText>
+				</div>
+				<div class="form-group">
+					<br/>
+					<h:commandButton value="搜索" action="#{searchBean.search}">
+						<f:ajax execute="@form" render="searchaaaa searchmsg"></f:ajax>
+					</h:commandButton>
+					<h:outputText id="searchmsg" value="#{searchBean.searchmsg}"></h:outputText>
+				</div><!-- 查询结果显示 -->
+				<h:dataTable id="searchaaaa" value="#{searchBean.searchResult}" var="book"
+					style="width: 100%;" class="table table-striped table-bordered table-condensed table-hover">
+					<f:facet name="caption">书籍列表</f:facet>
+					<h:column>
+						<f:facet name="header">ISBN13</f:facet>
+						#{book.isbn13}
+					</h:column>
+					<h:column>
+						<f:facet name="header">书名</f:facet>
+						#{book.title}
+					</h:column>
+					<h:column>
+						<f:facet name="header">出版社</f:facet>
+						#{book.publisher}
+					</h:column>
+					<h:column>
+						<f:facet name="header">出版日期</f:facet>
+						#{book.pubdate}
+					</h:column>
+					<h:column>
+						<f:facet name="header">作者</f:facet>
+						#{book.author}
+					</h:column>
+					<h:column>
+						<f:facet name="header">价格</f:facet>
+						#{book.price}
+					</h:column>
+					<h:column>
+						<f:facet name="header">操作</f:facet>
+						<h:commandButton value="删除" action="#{bookBean.delete(book)}"></h:commandButton>
+					</h:column>
+					
+				</h:dataTable>
+	
+			</h:form>
+			
+		</div>
+		<div class="tab-pane fade" id="changepwd">
+			<h:form>
+				<div align="center" class="container-fluid">
+					<div>
+						<h3>修改密码</h3>
+					</div>
+					<div>
+						<p>
+							旧密码:*
+							<h:inputSecret required="true" requiredMessage="**** 密码不能为空"
+								value="#{userBean.pwd}" title="请输入密码">
+							</h:inputSecret>
+						</p>
+					</div>
+					<div>
+						<p>
+							新密码:*
+							<h:inputSecret required="true" value="#{userBean.newpwd}"
+								requiredMessage="**** 密码不能为空" title="请输入密码">
+							</h:inputSecret>
+						</p>
+					</div>
+					<div>
+						<h:commandButton value="修改密码" action="#{userBean.changepwd}">
+							<f:ajax execute="@form" render="usermsg"></f:ajax>
+						</h:commandButton>
+					</div>
+					<h3 style="color: red;">
+						<h:outputText value="#{userBean.msg}" id="usermsg"></h:outputText>
+					</h3>
+				</div>
+			</h:form>
+		</div>
+	</div>
+
+</h:body>
+</html>

@@ -1,0 +1,15 @@
+table th{
+	text-align:center;
+}
+.al_center{
+	text-align:center;
+}
+.bgc_blue1{
+	background-color:#0080ff;
+}
+a:hover{
+	text-decoration: none;
+}
+w_30{
+	width:30px;
+}
